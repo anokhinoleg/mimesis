@@ -8,31 +8,46 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
     <title>{% block title %}Symfony{% endblock %}</title>
 </head>
 <body>
     <header>
-        <a href="">{% block header_title %}Symfony{% endblock %}</a>
+        <a href="{{ path('home') }}">{% block header_title %}Symfony{% endblock %}</a>
         <nav>
             <ul class="nav nav-pills nav-list" role="tablist">
-                <li><a href="">Home</a></li>
+                <li><a href="{{ path('home') }}">Home</a></li>
                 <li><a href="">About</a></li>
-                <li><a href="">Blog</a></li>
+                <li><a href="{{ path('blog') }}">Blog</a></li>
+                {% if is_granted(['ROLE_USER']) %}
+                    <li><a href="{{ path('security_logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path('security_login') }}">Log In</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
-    <div class="content">
-        <div class="row">
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">
+            {{ msg }}
+        </div>
+    {% endfor %}
+    <div class="main_container container">
+        {% block main %}
             {% block post %}
             {% endblock %}
-        </div>
+        {% endblock %}
     </div>
+    {% block aside %}
+    {% endblock %}
+    {% block comments %}
+    {% endblock %}
     <footer>
         olegyurievich1991@gmail.com, {{ "now"|date("Y") }}
     </footer>
     {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     {% endblock %}
 </body>
 </html>

@@ -1,0 +1,23 @@
+AppBundle\Entity\Post:
+    post_{1..10}:
+        title: <sentence(2)>
+        text: <text(500)>
+        author: <title('Male')> <firstName()> <lastName()>
+        genre: ['@genre_*']
+        createdAt: <dateTimeBetween('-3 years', 'now')>
+        isPublished: <boolean(75)>
+AppBundle\Entity\PostComment:
+    post.comment_{1..100}:
+        author: <userName()>
+        authorAvatarFilename: '50%? https://www.tm-town.com/assets/default_female600x600-3702af30bd630e7b0fa62af75cd2e67c.png : https://cdn0.iconfinder.com/data/icons/iconshock_guys/512/andrew.png'
+        comment: <paragraph()>
+        createdAt: <dateTimeBetween('-1 years', 'now')>
+        post: '@post_*'
+AppBundle\Entity\Genre:
+    genre_{1..10}:
+        name: <lastName()>
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: olegyurievich+<current()>@gmail.com
+        plainPassword: iliketurtles
+        roles: ['ROLE_ADMIN']

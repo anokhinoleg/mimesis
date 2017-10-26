@@ -1,0 +1,12 @@
+{{ form_start(postForm) }}
+            {{ form_row(postForm.title) }}
+            {{ form_row(postForm.text) }}
+            {{ form_row(postForm.author) }}
+            {{ form_row(postForm.isPublished) }}
+            {{ form_row(postForm.createdAt) }}
+            {{ form_row(postForm.genre, {
+                'label': 'Select one or couple genres of composition',
+                'attr': { 'size' : 10 },
+            }) }}
+<button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+{{ form_end(postForm) }}

@@ -1,0 +1,50 @@
+<div id="comments" class="comments container"></div>
+
+<div id="hello"></div>
+
+<div id='content'></div>
+
+<script type="text/babel">
+    var recentComments = {{ recentComments }};
+    var comments = {{ comments|json_encode|raw }};
+    var Comment = React.createClass({
+        render: function () {
+            return (
+                <div className="comment">
+                    <div className="author_info">
+                        <img src={this.props.authorAvatarFilename} alt="" width="200" height="200" />
+                        <p className="comment_author" >{this.props.author}</p>
+                    </div>
+                    <div className="textarea">
+                        <p className="comment_text">{this.props.comment}</p>
+                        <p className="comment_date">{this.props.date}</p>
+                    </div>
+                </div>
+            );
+        }
+    })
+    var ListOfComments = React.createClass({
+        render: function () {
+            return (
+                <div className="comments">
+                    <p>Recent comments: {recentComments}</p>
+                    {
+                        comments.map(function (comment, i) {
+                            return <Comment
+                                    key={i}
+                                    author={comment.author}
+                                    authorAvatarFilename={comment.authorAvatarFilename}
+                                    comment={comment.comment}
+                                    date={comment.date}
+                            />;
+                        })
+                    }
+                </div>
+            );
+        }
+    });
+    ReactDOM.render(
+        <ListOfComments/>,
+        document.getElementById('comments')
+    );
+</script>

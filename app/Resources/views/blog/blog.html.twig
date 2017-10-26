@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+{% block title %}Symfony Blog{% endblock %}
+{% block main %}
+<div class="row">
+{% block post %}
+    <div class="col-sm-9">
+    {% for post in posts %}
+    <div class="col-xs-12 preview">
+        <h2>{{ post.title }}</h2>
+        <div class="content">
+            <div class="content_main">
+                <p class="allusio">
+                    <img src="https://symfony.com/images/v5/logos/header-logo.svg" alt="image">
+                    <a href="{{
+                    path(
+                    'post',
+                    {
+                        'title':post.title,
+
+                    }
+                    )|replace({'%20':" "}) }}">
+                         {{ post.text }}
+                         <br><span style="font-size: .8em; float: right; color: forestgreen;">read more-></span>
+                    </a>
+                </p>
+            </div>
+            <div class="content_meta">
+                <p class="author" style="color: darkgoldenrod"> {{ post.author }} | {{ post.createdAt|date() }} <span class="date"></span></p>
+               <p style="color: white; margin-left: 10px;">
+                   {{ post.genre|join(',')}}
+               </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+{% block aside %}
+    <aside class="col-sm-2 col-sm-offset-1">
+        <ul class="sidebar-nav-fixed pull-right affix">
+            <h2>Genres</h2>
+            <li class="list-group-item"><a href="">Hard fiction</a></li>
+            <li class="list-group-item"><a href="">Fantasy</a></li>
+            <li class="list-group-item"><a href="">Horror</a></li>
+            <li class="list-group-item"><a href="">Apocaloptical</a></li>
+            <li class="list-group-item"><a href="">Dark fantasy</a></li>
+            <li class="list-group-item"><a href="">Distopian</a></li>
+            <li class="list-group-item"><a href="">Mystic</a></li>
+            <li class="list-group-item"><a href="">Alternative history</a></li>
+        </ul>
+    </aside>
+{% endblock %}
+</div>
+{% endblock %}
